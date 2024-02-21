@@ -1,0 +1,49 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Master.master.cs" Inherits="MyProject.Master" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css.css" rel="stylesheet" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <nav>
+            <div class="topnav">
+                <div class="left-nav">
+                    <a class="active" href="HomePage.aspx">Home</a>
+                    <a href="SignUpOption.aspx">הרשמה</a>
+                    <a href="Login.aspx">התחברות</a>
+                    <a href="Logout.aspx">התנתקות</a>
+
+                    <% if (Session["username"] != null && IsUserInTDatabase(Session["username"].ToString()))
+                        { %>
+
+                    <a href="AdminMenu.aspx">תפריט מנהל</a>
+                    <%}%>
+
+                    <% if (Session["username"] != null && !(IsUserInTDatabase(Session["username"].ToString())))
+                        { %>
+
+                    <a href="UserMenu.aspx">תפריט משתמש </a>
+                    <%}%>
+                </div>
+                <div class="right-nav">
+                    <% if (Session["username"] != null && IsUserInTDatabase(Session["username"].ToString()))
+                        { %>
+                    <a href="WorkoutPlan.aspx"> <img src = "https://cdn-icons-png.flaticon.com/512/1950/1950715.png" alt = "icon" class="nav-icon" />
+                    </a>
+                    <% } %>
+                    <% if (Session["username"] != null) { Response.Write("Hello, " + Session["username"].ToString()); } %>
+                    <i class="fa-light fa-clipboard-list"></i>
+                </div>
+            </div>
+        </nav>
+
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>
